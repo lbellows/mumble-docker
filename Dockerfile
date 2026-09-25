@@ -68,7 +68,8 @@ RUN /mumble/scripts/clone.sh \
     && /mumble/scripts/build.sh \
     && /mumble/scripts/copy_one_of.sh ./scripts/murmur.ini ./auxiliary_files/mumble-server.ini default_config.ini
 
-RUN git clone https://github.com/ncopa/su-exec.git /mumble/repo/su-exec \
+ARG SU_EXEC_VERSION=v0.3
+RUN git clone --depth 1 --branch "${SU_EXEC_VERSION}" https://github.com/ncopa/su-exec.git /mumble/repo/su-exec \
     && cd /mumble/repo/su-exec && make
 
 FROM base AS mumble
